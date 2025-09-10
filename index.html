@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liflow - Your Smart Life Companion for All Ages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Age Groups Section */
+        .age-groups {
+            padding: 5rem 0;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #718096;
+            margin-bottom: 3rem;
+        }
+
+        .age-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .age-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .age-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .age-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .age-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .age-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .age-features li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .age-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .feature-content p {
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 5rem 0;
+            background: #f8fafc;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+
+        .comparison-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 0;
+        }
+
+        .comparison-cell {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .comparison-cell:nth-child(4n) {
+            border-right: none;
+        }
+
+        .comparison-cell.header {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .check {
+            color: #48bb78;
+            font-size: 1.2rem;
+        }
+
+        .cross {
+            color: #f56565;
+            font-size: 1.2rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 0.25rem 0;
+        }
+
+        .footer-section ul li a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 1rem;
+            text-align: center;
+            color: #a0aec0;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-cell {
+                border-right: none;
+                text-align: center;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* App Styles */
+        .app-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 0;
+        }
+
+        .app-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .habit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .habit-item.completed {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .habit-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .progress-ring {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .progress-ring .background {
+            stroke: #e2e8f0;
+        }
+
+        .progress-ring .progress {
+            stroke: #667eea;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">🌊 Liflow</div>
+            <ul class="nav-links">
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('features')">Features</a></li>
+                <li><a onclick="showSection('pricing')">Pricing</a></li>
+                <li><a onclick="showSection('about')">About</a></li>
+            </ul>
+            <a href="#" class="cta-button" onclick="showSection('app')">Get Started</a>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page-section active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Balance Every Day. At Every Age.</h1>
+                <p>Liflow is your smart life companion that adapts to every stage of life - from kids to seniors. Manage health, habits, goals, and wellbeing through one unified dashboard.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary" onclick="showSection('app')">Start Your Journey</a>
+                    <a href="#" class="btn-secondary" onclick="scrollToSection('age-groups')">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Age Groups Section -->
+        <section class="age-groups" id="age-groups">
+            <div class="container">
+                <h2 class="section-title">Designed for Every Age</h2>
+                <p class="section-subtitle">Personalized experiences that grow with you</p>
+                
+                <div class="age-grid">
+                    <div class="age-card">
+                        <div class="age-icon">🧒</div>
+                        <h3>Kids (5-12)</h3>
+                        <ul class="age-features">
+                            <li>Homework reminders</li>
+                            <li>Screen-time breaks</li>
+                            <li>Healthy habit rewards</li>
+                            <li>Fun progress tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="age-card">
+                        <div class="age-icon">🎓</div>
+                        <h3>Teens/Students</h3>
+                        <ul class="age-features">
+                            <li>Mood tracker</li>
+                            <li>Goal journal</li>
+                            <li>Career nudges</li>
+                            <li>Study scheduler</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="age-card">
+                        <div class="age-icon">💼</div>
+                        <h3>Young Adults</h3>
+                        <ul class="age-features">
+                            <li>Sleep & water tracker</li>
+                            <li>Time blocking</li>
+                            <li>Finance tips</li>
+                            <li>Career planning</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="age-card">
+                        <div class="age-icon">👨‍👩‍👧‍👦</div>
+                        <h3>Parents</h3>
+                        <ul class="age-features">
+                            <li>Shared family calendar</li>
+                            <li>Child milestones</li>
+                            <li>Self-care prompts</li>
+                            <li>Family wellness</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="age-card">
+                        <div class="age-icon">👴</div>
+                        <h3>Seniors</h3>
+                        <ul class="age-features">
+                            <li>Medicine alerts</li>
+                            <li>Step tracking</li>
+                            <li>Emergency check-ins</li>
+                            <li>Health monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison">
+            <div class="container">
+                <h2 class="section-title">Why Choose Liflow?</h2>
+                <p class="section-subtitle">See how we compare to other solutions</p>
+                
+                <div class="comparison-table">
+                    <div class="comparison-header">
+                        <h3>Liflow vs. Competition</h3>
+                    </div>
+                    <div class="comparison-grid">
+                        <div class="comparison-cell header">Features</div>
+                        <div class="comparison-cell header">Liflow</div>
+                        <div class="comparison-cell header">Google Calendar</div>
+                        <div class="comparison-cell header">Apple Health</div>
+                        
+                        <div class="comparison-cell">Age-specific customization</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        
+                        <div class="comparison-cell">Habit tracking</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        
+                        <div class="comparison-cell">Family sharing</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        
+                        <div class="comparison-cell">Wellness nudges</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        
+                        <div class="comparison-cell">Mental health support</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        
+                        <div class="comparison-cell">All-in-one solution</div>
+                        <div class="comparison-cell"><span class="check">✓</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                        <div class="comparison-cell"><span class="cross">✗</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Features Page -->
+    <div id="features" class="page-section">
+        <section class="features" style="padding-top: 8rem;">
+            <div class="container">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-subtitle">Everything you need to live your best life</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h3>Smart Goal Setting</h3>
+                            <p>Set and track goals that adapt to your age and life stage. Our AI helps break down big goals into manageable daily actions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-content">
+                            <h3>Progress Analytics</h3>
+                            <p>Visualize your progress with beautiful charts and insights. Understand your patterns and optimize your routines.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-content">
+                            <h3>Family Sync</h3>
+                            <p>Keep your family connected with shared calendars, milestone tracking, and collaborative goal setting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔔</div>
+                        <div class="feature-content">
+                            <h3>Smart Reminders</h3>
+                            <p>Get personalized nudges at the right time. From hydration reminders to meditation breaks, we've got you covered.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-content">
+                            <h3>Mental Wellness</h3>
+                            <p>Track your mood, practice mindfulness, and build emotional resilience with guided exercises and insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-content">
+                            <h3>Cross-Platform Sync</h3>
+                            <p>Access your data anywhere, anytime. Seamless synchronization across all your devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Pricing Page -->
+    <div id="pricing" class="page-section">
+        <section class="pricing" style="padding-top: 8rem;">
+            <div class="container">
+                <h2 class="section-title">Choose Your Plan</h2>
+                <p class="section-subtitle">Start free, upgrade when you're ready</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Free</h3>
+                        <div class="price">$0<span class="price-period">/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Basic habit tracking</li>
+                            <li>Daily planner</li>
+                            <li>Wellness nudges</li>
+                            <li>Progress tracking</li>
+                            <li>Mobile app access</li>
+                        </ul>
+                        <a href="#" class="cta-button" onclick="showSection('app')" style="width: 100%; text-align: center;">Get Started</a>
+                    </div>
+                    
+                    <div class="pricing-card featured">
+                        <h3>Liflow+</h3>
+                        <div class="price">$9<span class="price-period">/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Everything in Free</li>
+                            <li>AI life coach</li>
+                            <li>Family sharing (up to 6)</li>
+                            <li>Advanced analytics</li>
+                            <li>Voice journaling</li>
+                            <li>Priority support</li>
+                        </ul>
+                        <a href="#" class="cta-button" onclick="showSection('app')" style="width: 100%; text-align: center;">Start Free Trial</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3>Family</h3>
+                        <div class="price">$19<span class="price-period">/month</span></div>
+                        <ul class="pricing-features">
+                            <li>Everything in Liflow+</li>
+                            <li>Unlimited family members</li>
+                            <li>Parental controls</li>
+                            <li>Family wellness reports</li>
+                            <li>Emergency features</li>
+                            <li>Custom integrations</li>
+                        </ul>
+                        <a href="#" class="cta-button" onclick="showSection('app')" style="width: 100%; text-align: center;">Start Free Trial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page-section">
+        <section style="padding: 8rem 0 5rem;">
+            <div class="container">
+                <h2 class="section-title">About Liflow</h2>
+                <p class="section-subtitle">Our mission to help everyone live their best life</p>
+                
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: #4a5568;">
+                        Liflow was born from a simple observation: life management tools are either too complex or too simple, 
+                        and none of them adapt to different life stages. We believe that a 10-year-old and a 70-year-old 
+                        shouldn't use the same interface or features.
+                    </p>
+                    
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: #4a5568;">
+                        Our team combines expertise in psychology, user experience design, and technology to create 
+                        a platform that truly understands and adapts to your unique needs at every stage of life.
+                    </p>
+                    
+                    <div style="background: #f8fafc; padding: 3rem; border-radius: 20px; margin: 3rem 0;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #2d3748;">Our Vision</h3>
+                        <p style="font-size: 1.1rem; color: #4a5568; line-height: 1.6;">
+                            "To create a world where technology adapts to humans, not the other way around. 
+                            Where every person, regardless of age, can easily manage their wellbeing and live their best life."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- App Section -->
+    <div id="app" class="page-section">
+        <div class="app-container">
+            <!-- Login/Signup Form -->
+            <div id="auth-section">
+                <div class="app-card">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h2 style="color: #2d3748; margin-bottom: 0.5rem;">Welcome to Liflow</h2>
+                        <p style="color: #718096;">Your journey to better living starts here</p>
+                    </div>
+                    
+                    <div id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="Enter your password">
+                        </div>
+                        <button class="cta-button" onclick="login()" style="width: 100%; margin-bottom: 1rem;">Sign In</button>
+                        <p style="text-align: center; color: #718096;">
+                            Don't have an account? 
+                            <a href="#" onclick="showSignup()" style="color: #667eea; text-decoration: none;">Sign up</a>
+                        </p>
+                    </div>
+                    
+                    <div id="signup-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" placeholder="Create a password">
+                        </div>
+                        <div class="form-group">
+                            <label for="age-group">Age Group</label>
+                            <select id="age-group">
+                                <option value="">Select your age group</option>
+                                <option value="kids">Kids (5-12)</option>
+                                <option value="teens">Teens/Students (13-22)</option>
+                                <option value="adults">Young Adults (23-35)</option>
+                                <option value="parents">Parents (25-55)</option>
+                                <option value="seniors">Seniors (55+)</option>
+                            </select>
+                        </div>
+                        <button class="cta-button" onclick="signup()" style="width: 100%; margin-bottom: 1rem;">Create Account</button>
+                        <p style="text-align: center; color: #718096;">
+                            Already have an account? 
+                            <a href="#" onclick="showLogin()" style="color: #667eea; text-decoration: none;">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard-section" style="display: none;">
+                <div class="dashboard">
+                    <div class="dashboard-header">
+                        <h1 id="welcome-message">Welcome back!</h1>
+                        <p id="user-stats">Let's make today amazing</p>
+                        <button onclick="logout()" style="background: #f56565; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-top: 1rem;">Logout</button>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Today's Habits</h3>
+                            <div id="habits-list">
+                                <!-- Habits will be populated here -->
+                            </div>
+                            <button onclick="addHabit()" class="cta-button" style="width: 100%; margin-top: 1rem;">Add Habit</button>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>Progress Overview</h3>
+                            <div style="text-align: center;">
+                                <svg class="progress-ring" width="100" height="100">
+                                    <circle class="background" cx="50" cy="50" r="40"></circle>
+                                    <circle class="progress" cx="50" cy="50" r="40" id="progress-circle"></circle>
+                                </svg>
+                                <p id="progress-text" style="margin-top: 1rem; font-weight: 600;">0% Complete</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>Wellness Nudges</h3>
+                            <div id="nudges-container">
+                                <p style="color: #718096;">Nudges will appear here throughout the day</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>Quick Stats</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center;">
+                                <div>
+                                    <div style="font-size: 2rem; font-weight: bold; color: #667eea;" id="streak-count">0</div>
+                                    <div style="color: #718096;">Day Streak</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 2rem; font-weight: bold; color: #48bb78;" id="completed-today">0</div>
+                                    <div style="color: #718096;">Completed Today</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Liflow</h3>
+                    <p style="color: #a0aec0; line-height: 1.6;">
+                        Your smart life companion for all ages. Balance every day, at every stage of life.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#" onclick="showSection('features')">Features</a></li>
+                        <li><a href="#" onclick="showSection('pricing')">Pricing</a></li>
+                        <li><a href="#" onclick="showSection('app')">Get Started</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#" onclick="showSection('about')">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Liflow. All rights reserved. Made with ❤️ for better living.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let userHabits = [];
+        let nudgeInterval = null;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const savedUser = localStorage.getItem('liflow_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
+            }
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Load user habits
+            loadUserHabits();
+        });
+
+        // Navigation functions
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Special handling for app section
+            if (sectionId === 'app') {
+                if (currentUser) {
+                    showDashboard();
+                } else {
+                    showAuth();
+                }
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Authentication functions
+        function showLogin() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+        }
+
+        function showSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+
+        function showAuth() {
+            document.getElementById('auth-section').style.display = 'block';
+            document.getElementById('dashboard-section').style.display = 'none';
+        }
+
+        function showDashboard() {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            updateDashboard();
+            startWellnessNudges();
+        }
+
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Check if user exists
+            const users = JSON.parse(localStorage.getItem('liflow_users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('liflow_user', JSON.stringify(user));
+                showDashboard();
+            } else {
+                alert('Invalid email or password');
+            }
+        }
+
+        function signup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const ageGroup = document.getElementById('age-group').value;
+
+            if (!name || !email || !password || !ageGroup) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Check if user already exists
+            const users = JSON.parse(localStorage.getItem('liflow_users') || '[]');
+            if (users.find(u => u.email === email)) {
+                alert('User already exists with this email');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password,
+                ageGroup,
+                joinDate: new Date().toISOString(),
+                streak: 0
+            };
+
+            users.push(newUser);
+            localStorage.setItem('liflow_users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('liflow_user', JSON.stringify(newUser));
+            
+            // Initialize default habits based on age group
+            initializeDefaultHabits(ageGroup);
+            
+            showDashboard();
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('liflow_user');
+            clearInterval(nudgeInterval);
+            showAuth();
+            showSection('home');
+        }
+
+        // Habit management
+        function initializeDefaultHabits(ageGroup) {
+            const defaultHabits = {
+                kids: [
+                    { name: 'Brush teeth', completed: false, streak: 0 },
+                    { name: 'Do homework', completed: false, streak: 0 },
+                    { name: 'Read for 20 minutes', completed: false, streak: 0 }
+                ],
+                teens: [
+                    { name: 'Exercise for 30 minutes', completed: false, streak: 0 },
+                    { name: 'Study/homework time', completed: false, streak: 0 },
+                    { name: 'Practice mindfulness', completed: false, streak: 0 }
+                ],
+                adults: [
+                    { name: 'Drink 8 glasses of water', completed: false, streak: 0 },
+                    { name: 'Get 7+ hours sleep', completed: false, streak: 0 },
+                    { name: 'Exercise or walk', completed: false, streak: 0 }
+                ],
+                parents: [
+                    { name: 'Family time', completed: false, streak: 0 },
+                    { name: 'Self-care activity', completed: false, streak: 0 },
+                    { name: 'Plan tomorrow', completed: false, streak: 0 }
+                ],
+                seniors: [
+                    { name: 'Take medications', completed: false, streak: 0 },
+                    { name: 'Walk or light exercise', completed: false, streak: 0 },
+                    { name: 'Connect with family/friends', completed: false, streak: 0 }
+                ]
+            };
+
+            userHabits = defaultHabits[ageGroup] || defaultHabits.adults;
+            saveUserHabits();
+        }
+
+        function loadUserHabits() {
+            if (currentUser) {
+                const saved = localStorage.getItem(`liflow_habits_${currentUser.id}`);
+                userHabits = saved ? JSON.parse(saved) : [];
+            }
+        }
+
+        function saveUserHabits() {
+            if (currentUser) {
+                localStorage.setItem(`liflow_habits_${currentUser.id}`, JSON.stringify(userHabits));
+            }
+        }
+
+        function addHabit() {
+            const habitName = prompt('Enter a new habit:');
+            if (habitName && habitName.trim()) {
+                userHabits.push({
+                    name: habitName.trim(),
+                    completed: false,
+                    streak: 0
+                });
+                saveUserHabits();
+                updateDashboard();
+            }
+        }
+
+        function toggleHabit(index) {
+            userHabits[index].completed = !userHabits[index].completed;
+            
+            if (userHabits[index].completed) {
+                userHabits[index].streak++;
+            }
+            
+            saveUserHabits();
+            updateDashboard();
+        }
+
+        function deleteHabit(index) {
+            if (confirm('Are you sure you want to delete this habit?')) {
+                userHabits.splice(index, 1);
+                saveUserHabits();
+                updateDashboard();
+            }
+        }
+
+        // Dashboard updates
+        function updateDashboard() {
+            if (!currentUser) return;
+
+            // Update welcome message
+            document.getElementById('welcome-message').textContent = `Welcome back, ${currentUser.name}!`;
+            
+            // Update habits list
+            const habitsList = document.getElementById('habits-list');
+            habitsList.innerHTML = '';
+            
+            userHabits.forEach((habit, index) => {
+                const habitItem = document.createElement('div');
+                habitItem.className = `habit-item ${habit.completed ? 'completed' : ''}`;
+                habitItem.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" class="habit-checkbox" ${habit.completed ? 'checked' : ''} 
+                               onchange="toggleHabit(${index})">
+                        <span style="${habit.completed ? 'text-decoration: line-through; color: #718096;' : ''}">${habit.name}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.8rem; color: #667eea;">🔥 ${habit.streak}</span>
+                        <button onclick="deleteHabit(${index})" style="background: none; border: none; color: #f56565; cursor: pointer;">✕</button>
+                    </div>
+                `;
+                habitsList.appendChild(habitItem);
+            });
+
+            // Update progress
+            const completedHabits = userHabits.filter(h => h.completed).length;
+            const totalHabits = userHabits.length;
+            const progressPercent = totalHabits > 0 ? (completedHabits / totalHabits) * 100 : 0;
+            
+            // Update progress ring
+            const progressCircle = document.getElementById('progress-circle');
+            const circumference = 2 * Math.PI * 40;
+            const offset = circumference - (progressPercent / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            
+            document.getElementById('progress-text').textContent = `${Math.round(progressPercent)}% Complete`;
+            document.getElementById('completed-today').textContent = completedHabits;
+            
+            // Update streak
+            const maxStreak = Math.max(...userHabits.map(h => h.streak), 0);
+            document.getElementById('streak-count').textContent = maxStreak;
+        }
+
+        // Wellness nudges
+        function startWellnessNudges() {
+            const nudges = [
+                "💧 Time to hydrate! Drink a glass of water.",
+                "🧘 Take a deep breath and relax for a moment.",
+                "🚶 Stand up and stretch your legs!",
+                "👀 Give your eyes a break from the screen.",
+                "😊 Think of something you're grateful for today.",
+                "🌱 Check in with yourself - how are you feeling?",
+                "⏰ Great job staying on track with your habits!",
+                "🎯 You're doing amazing - keep up the good work!"
+            ];
+
+            nudgeInterval = setInterval(() => {
+                const randomNudge = nudges[Math.floor(Math.random() * nudges.length)];
+                showNudge(randomNudge);
+            }, 300000); // Every 5 minutes
+        }
+
+        function showNudge(message) {
+            const nudgesContainer = document.getElementById('nudges-container');
+            const nudgeElement = document.createElement('div');
+            nudgeElement.style.cssText = `
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-bottom: 0.5rem;
+                animation: slideIn 0.5s ease;
+            `;
+            nudgeElement.textContent = message;
+            
+            nudgesContainer.insertBefore(nudgeElement, nudgesContainer.firstChild);
+            
+            // Remove old nudges (keep only last 3)
+            while (nudgesContainer.children.length > 3) {
+                nudgesContainer.removeChild(nudgesContainer.lastChild);
+            }
+        }
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
